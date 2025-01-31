@@ -1,0 +1,7 @@
+Fruit		Price/kg		Quantity
+Peach		30			24
+Banana		25			71
+Strawberry	55			37
+Apple		70			110
+Mango		91.5			204
+Tangerine	7.5			98

@@ -1,0 +1,53 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Syntax Error: Missing argument"
+	echo 'Syntax: ./awk_balancing file_path'
+	exit 1
+	fi
+
+for i in $@; do
+	if [ -f $i ]; then
+		awk -F: '
+		/^B/ {balance=$NF;}
+		/^M/ {minimum=$NF;}
+		
+		
+		/^D/ {
+		balance+=$NF; printf"%s\t%s", $2, balance;
+		if (balance < minimum){
+			printf"\t* Below minimum balance\n"
+		}
+		else {
+			printf"\n";
+		}
+		}
+		
+		
+		/^C/ {
+		balance-=$NF; printf"%s\t%s", $2, balance;
+		if (balance < minimum){
+			printf"\t* Below minimum balance\n"
+		}
+		else {
+			printf"\n";
+		}
+		}
+		
+		
+		/^W/ {
+		balance-=$NF; printf"%s\t%s", $2, balance;
+		if (balance < minimum){
+			printf"\t* Below minimum balance\n"
+		}
+		else {
+			printf"\n";
+		}
+		}
+		END { printf"-\n"; printf"Total\t\t%s\n", balance;}
+		' $i
+	else
+		echo "$i is not a file or doesn't exist"
+		echo "Syntax: ./awk_balancing file_path"
+	fi
+done

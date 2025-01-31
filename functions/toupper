@@ -1,0 +1,14 @@
+toupper(){
+
+        if [ $# -lt 1 ]; then
+                echo "Error: Missing arguments."
+                echo "Syntax: toupper string1 stringN"
+                return 1
+        fi
+        
+        for i in $@; do
+                echo "$i" | tr '[:lower:]' '[:upper:]' | tr '\n' ' '
+        done
+        
+        echo
+}

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+awk '{c1=$3; c2=$2; c3=$1; print c1, c2, c3}' $1

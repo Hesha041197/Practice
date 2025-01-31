@@ -1,0 +1,34 @@
+makedir() { 
+
+	printf "Please input the path for the folder you want to create: "
+	read Response
+	if [ -z $Response ]; then
+		echo "Please enter a valid path"
+	fi
+	
+	OLDIFS="$IFS"
+	IFS=/
+	for DIR in $Response
+	do 
+		if [ -z $DIR ]; then
+			cd /
+		elif [ -d $DIR ]; then
+			cd "$DIR";
+		else 
+			mkdir "$DIR"
+			if [ $? -eq 0 ]; then
+				cd "$DIR"
+				if [ $? -eq 0 ]; then
+					pwd
+				else
+					echo "Couldn't cd to $1"
+				fi
+			else
+				echo "Couldn't mkdir $1"
+			fi
+		fi
+	done
+	
+	IFS="$OLDIFS"
+	
+}

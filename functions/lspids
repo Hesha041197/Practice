@@ -1,0 +1,20 @@
+lspids() {
+
+#	if [ $# -lt 1 ]
+
+
+	if [ -z "$1" ]; then
+		echo "Please enter a correct arguement"
+		echo "Syntax: lspids -options arguement"
+		return 1
+	fi
+	
+	
+	case "$1" in
+		-h)/bin/ps -ef | head -1; /bin/ps -ef | grep "$2" | grep -v grep;;
+		-s)/bin/ps -ef | grep "$2" | grep -v grep | sort -nk 2,2;;
+		*)/bin/ps -ef | grep "$1" | grep -v grep;;
+	esac
+		
+		
+}

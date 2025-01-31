@@ -1,0 +1,14 @@
+tolower(){
+
+	if [ $# -lt 1 ]; then
+		echo "Error: Missing arguments."
+		echo "Syntax: tolower string1 stringN"
+		return 1
+	fi
+	
+	for i in $@; do
+		echo "$i" | tr 'A-Z' 'a-z' | tr '\n' ' '
+	done
+
+	echo
+}

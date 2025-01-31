@@ -1,0 +1,41 @@
+search() {
+
+	if [ $# -lt 1 ]; then
+		echo "Missing arguements."
+		echo "Syntax: search regular_expression file1 fileN"
+		return 1
+	elif [ $# -lt 2 ]; then
+		word=$1
+		files=`ls -p | grep -v / | tr '\n' ' '`
+		if [ -z files ]; then
+			echo "There are no files in the current directory."
+			return 1
+		else
+			echo "Searching for $word in $files..."
+			echo
+			for i in $files; do
+				echo "In file $i:"
+				sed -n "/$word/p" $i
+				echo
+				echo
+			done
+		fi
+	else
+		word=$1
+		shift
+		files=$@
+		echo "Searching for $word in $files..."
+		for i in $@; do
+			if [ -f "$i" ]; then
+				echo "In file $i:"
+				sed -n "/$word/p" $i
+				echo
+				echo
+			else
+				echo "$i is not a file or it doesn't exist."
+				echo "Syntax: search regular_expression file1 fileN"
+				continue
+			fi
+		done
+	fi
+}
